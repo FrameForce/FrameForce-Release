@@ -11,6 +11,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+# Line 12 is the 'uses:' line above. Ensure it has exactly 8 spaces before it.
 
       - name: VirusTotal Scan
         uses: cssnr/virustotal-action@v1
