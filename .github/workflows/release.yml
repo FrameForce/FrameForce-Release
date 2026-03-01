@@ -1,27 +1,23 @@
-name: Scan and Release
+name: Release Scan
 
 on:
   push:
-    branches: [ "main" ]  # Adjust to your branch name if different
-  workflow_dispatch:      # Allows you to run it manually from the Actions tab
+    branches:
+      - main
 
 jobs:
-  vt_scan:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write     # Required if you want the action to touch releases at all
     steps:
-      - name: Checkout code
-        uses: [actions/checkout](https://github.com)@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: VirusTotal Scan
-        uses: [cssnr/virustotal-action](https://github.com/marketplace/actions/virustotal-action)@v1
+        uses: cssnr/virustotal-action@v1
         with:
           vt_api_key: ${{ secrets.VT_API_KEY }}
-          # List the files you actually want to scan here:
           files: |
             *.exe
             *.zip
-          update_release: false  # STOPS SHA from appearing in Release Notes
-          summary: false         # STOPS SHA from appearing in Job Summary
-          sha256: false          # STOPS SHA calculation entirely (v1.7.0+)
+          update_release: false
+          summary: false
