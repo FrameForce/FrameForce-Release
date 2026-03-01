@@ -1,7 +1,21 @@
-- name: VirusTotal Scan
-  uses: cssnr/virustotal-action@v1
-  with:
-    vt_api_key: ${{ secrets.VT_API_KEY }}
-    update_release: false
-    sha256: false  # Force disable the SHA calculation
+name: Scan and Release  # This is the root 'Mapping'
+
+on:
+  push:
+    branches: [ "main" ]  # Defines when the scan runs
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: [actions/checkout](https://github.com)@v4
+
+      - name: VirusTotal Scan
+        uses: [cssnr/virustotal-action](https://github.com/marketplace/actions/virustotal-action)@v1
+        with:
+          vt_api_key: ${{ secrets.VT_API_KEY }}
+          update_release: false  # Stops SHA from being added to releases
+          summary: false         # Stops SHA from being added to Job Summary
+
 
